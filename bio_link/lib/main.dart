@@ -10,23 +10,24 @@ void main() {
           children: <Widget>[
             CircleAvatar(
               radius: 50,
-              backgroundImage: NetworkImage('https://seu-link-para-imagem.com'),
+              backgroundImage: NetworkImage(
+                  'https://th.bing.com/th/id/R.63dfffcb740f31974715c4c094b18da3?rik=s29eladZMTUhRg&pid=ImgRaw&r=0'),
             ),
             ElevatedButton(
-              onPressed: () => _launchURL('https://www.link1.com'),
-              child: Text('Botão 1'),
+              onPressed: abrirLinkedlin,
+              child: Text('Linkedlin'),
             ),
             ElevatedButton(
-              onPressed: () => _launchURL('https://www.link2.com'),
-              child: Text('Botão 2'),
+              onPressed: abrirInstagram,
+              child: Text('Instagram'),
             ),
             ElevatedButton(
-              onPressed: () => _launchURL('https://www.link3.com'),
-              child: Text('Botão 3'),
+              onPressed: abrirFacebook,
+              child: Text('Facebook'),
             ),
             ElevatedButton(
-              onPressed: () => _launchURL('https://www.link4.com'),
-              child: Text('Botão 4'),
+              onPressed: abrirGithub,
+              child: Text('Github'),
             ),
           ],
         ),
@@ -35,10 +36,37 @@ void main() {
   ));
 }
 
-_launchURL(String url) async {
-  var uri = url.parse('www.linkedin.com/in/vinicius-barbosa-811ba3135');
-  if (await canLaunchUrl(url)) {
-    await launch(url);
+void abrirLinkedlin() async {
+  const url = 'https://www.linkedin.com/in/vinicius-barbosa-811ba3135';
+  if (await canLaunchUrl(Uri.parse(url))) {
+    await launchUrl(Uri.parse(url));
+  } else {
+    throw 'Não foi possível abrir $url';
+  }
+}
+
+void abrirInstagram() async {
+  const url = 'https://www.instagram.com/viniciusbarbosa500/';
+  if (await canLaunchUrl(Uri.parse(url))) {
+    await launchUrl(Uri.parse(url));
+  } else {
+    throw 'Não foi possível abrir $url';
+  }
+}
+
+void abrirFacebook() async {
+  const url = 'https://www.facebook.com/profile.php?id=100006178690018';
+  if (await canLaunchUrl(Uri.parse(url))) {
+    await launchUrl(Uri.parse(url));
+  } else {
+    throw 'Não foi possível abrir $url';
+  }
+}
+
+void abrirGithub() async {
+  const url = 'https://github.com/ViniciusB2003';
+  if (await canLaunchUrl(Uri.parse(url))) {
+    await launchUrl(Uri.parse(url));
   } else {
     throw 'Não foi possível abrir $url';
   }
