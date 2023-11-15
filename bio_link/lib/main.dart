@@ -16,7 +16,7 @@ class BackgroundImage extends StatelessWidget {
     return Stack(
       children: [
         Image.asset(
-          'C:/Códigos VSCODE/Dart-Hub/bio_link/lib/assets/Sol.gif',
+          'C:/Códigos VSCODE/Dart-Hub/bio_link/lib/assets/Constelação.gif',
           fit: BoxFit.cover,
           height: double.infinity,
           width: double.infinity,
