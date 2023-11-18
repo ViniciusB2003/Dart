@@ -28,8 +28,8 @@ class BackgroundImage extends StatelessWidget {
             children: <Widget>[
               CircleAvatar(
                 radius: 100,
-                backgroundImage: NetworkImage(
-                    'https://scontent.fcgb11-1.fna.fbcdn.net/v/t39.30808-6/250119463_3069885523227374_3447470219410852670_n.jpg?_nc_cat=106&ccb=1-7&_nc_sid=5f2048&_nc_eui2=AeEWT2vHNsI5e1E88mwyRGnbiLntijYjiYaIue2KNiOJhkMJ6CgRHM2qNVIfZlkcwMrs93l44m9CiYyqdGgDqMQP&_nc_ohc=izspKNlY2bwAX-FgFts&_nc_ht=scontent.fcgb11-1.fna&cb_e2o_trans=q&oh=00_AfBB0-LxkY5Fq5iKx-zGXM0W7COAQDKB8drQR-8k3kHNsw&oe=65587248'),
+                backgroundImage: AssetImage(
+                    'C:/Códigos VSCODE/Dart-Hub/bio_link/lib/assets/Perfil.jpg'),
               ),
               SizedBox(height: 10),
               ElevatedButton(

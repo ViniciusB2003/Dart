@@ -64,6 +64,7 @@ flutter:
   assets:
     - C:/Códigos VSCODE/Dart-Hub/bio_link/lib/assets/Sol.gif
     - C:/Códigos VSCODE/Dart-Hub/bio_link/lib/assets/Constelação.gif
+    - C:/Códigos VSCODE/Dart-Hub/bio_link/lib/assets/Perfil.jpg
 
   #   - images/a_dot_ham.jpeg
 
