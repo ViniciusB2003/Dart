@@ -145,7 +145,7 @@ class _ProgressIndicatorExampleState extends State<ProgressIndicatorExample>
       vsync: this,
       lowerBound: _counter,
       duration: const Duration(seconds: 5),
-      reverseDuration: const Duration(seconds: 30),
+      reverseDuration: const Duration(seconds: 10),
     )
       ..addStatusListener((status) {
         if (status == AnimationStatus.completed) {
@@ -181,10 +181,12 @@ class _ProgressIndicatorExampleState extends State<ProgressIndicatorExample>
                 icon: const Icon(Icons.add),
                 label: Text('$_counter'),
               ),
-              Text(
+              ElevatedButton(onPressed: initState, child: Text('Teste')),
+
+              /*Text(
                 'Circular progress indicator with a fixed color',
                 style: Theme.of(context).textTheme.titleLarge,
-              ),
+              ),*/
               SizedBox(
                 height: 60,
                 width: 60,
