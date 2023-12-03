@@ -1,3 +1,6 @@
+import 'dart:html';
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 /*
 void main() {
@@ -127,7 +130,9 @@ class ProgressIndicatorExample extends StatefulWidget {
 class _ProgressIndicatorExampleState extends State<ProgressIndicatorExample>
     with TickerProviderStateMixin {
   late AnimationController controller;
-  double _counter = 0;
+  int _counter = 0;
+  int duration = 10;
+  int reverseduration = 15;
   void _incrementCounter() {
     setState(() {
       // This call to setState tells the Flutter framework that something has
@@ -141,17 +146,24 @@ class _ProgressIndicatorExampleState extends State<ProgressIndicatorExample>
 
   @override
   void initState() {
+    double repeatCount = 0;
+    int maxRepeatCount = _counter;
     controller = AnimationController(
       vsync: this,
-      lowerBound: _counter,
-      duration: const Duration(seconds: 5),
-      reverseDuration: const Duration(seconds: 30),
+      duration: const Duration(seconds: 10),
+      reverseDuration: const Duration(seconds: 15),
+      value: 1,
     )
       ..addStatusListener((status) {
         if (status == AnimationStatus.completed) {
-          controller.reverse();
+          if (repeatCount < maxRepeatCount) {
+            controller.reverse();
+          }
         } else if (status == AnimationStatus.dismissed) {
-          controller.forward();
+          if (repeatCount < maxRepeatCount) {
+            controller.forward();
+          }
+          repeatCount++;
         }
       })
       ..addListener(() {
@@ -167,37 +179,101 @@ class _ProgressIndicatorExampleState extends State<ProgressIndicatorExample>
     super.dispose();
   }
 
+  /*Timer? _timer;
+  int _start = 10;
+
+  void startTimer() {
+    const oneSec = const Duration(seconds: 1);
+    _timer = new Timer.periodic(
+      oneSec,
+      (Timer timer) {
+        if (_start == 0) {
+          setState(() {
+            timer.cancel();
+          });
+        } else {
+          setState(() {
+            _start--;
+          });
+        }
+      },
+    );
+  }
+
+  @override
+  void disposa() {
+    _timer?.cancel();
+    super.dispose();
+  }*/
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Padding(
-        padding: const EdgeInsets.all(300.0),
-        child: Center(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: <Widget>[
-              ElevatedButton.icon(
-                onPressed: _incrementCounter,
-                icon: const Icon(Icons.add),
-                label: Text('$_counter'),
-              ),
-              Text(
-                'Circular progress indicator with a fixed color',
-                style: Theme.of(context).textTheme.titleLarge,
-              ),
-              SizedBox(
-                height: 60,
-                width: 60,
+      appBar: AppBar(
+        backgroundColor: Color.fromRGBO(85, 24, 24, 0.965),
+        title: Center(child: Text('Temporizador Pomodoro')),
+      ),
+      body: Center(
+        child: Stack(
+          alignment: Alignment.center,
+          children: <Widget>[
+            SizedBox(
+                height: 200,
+                width: 200,
                 child: Transform.scale(
-                  scale: 8,
+                  scale: 3,
                   child: CircularProgressIndicator(
+                    valueColor: AlwaysStoppedAnimation<Color>(
+                        Color.fromRGBO(3, 1, 31, 0.965)),
                     value: controller.value,
                     semanticsLabel: 'Circular progress indicator',
                   ),
+                )),
+            Column(
+              children: [
+                SizedBox(height: 100),
+                AnimatedBuilder(
+                  animation: controller,
+                  builder: (BuildContext context, Widget? child) {
+                    return Text(
+                      controller.status == AnimationStatus.forward
+                          ? 'Hora de Descansar'
+                          : 'Hora de Estudar',
+                      style: const TextStyle(
+                          fontSize: 40,
+                          color: Color.fromRGBO(
+                              94, 6, 6, 0.965)), // Estilo do texto
+                    );
+                  },
                 ),
-              ),
-            ],
-          ),
+                AnimatedBuilder(
+                    animation: controller,
+                    builder: (BuildContext context, Widget? child) {
+                      return Text(controller.status == AnimationStatus.completed
+                          ? 'Defina quantos ciclos serão feitos e aperte Iniciar'
+                          : '');
+                    }),
+                AnimatedBuilder(
+                    animation: controller,
+                    builder: (BuildContext context, Widget? child) {
+                      int currentTime = (controller.value * duration).round();
+                      return Text('$currentTime');
+                    })
+              ],
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+                ElevatedButton.icon(
+                  onPressed: _incrementCounter,
+                  icon: const Icon(Icons.add),
+                  label: Text('$_counter'),
+                ),
+                SizedBox(width: 10),
+                ElevatedButton(onPressed: initState, child: Text('Iniciar')),
+              ],
+            ),
+          ],
         ),
       ),
     );
