@@ -61,6 +61,9 @@ flutter:
   # To add assets to your application, add an assets section, like this:
   assets:
   - C:/Códigos VSCODE/Dart-Hub/pomodoro_timer/lib/assets/Estudo.gif
+  - C:/Códigos VSCODE/Dart-Hub/pomodoro_timer/lib/assets/ezgif-2-9d5d7b631b.gif
+  - C:/Códigos VSCODE/Dart-Hub/pomodoro_timer/lib/assets/1155052.jpg
+  - C:/Códigos VSCODE/Dart-Hub/pomodoro_timer/lib/assets/146302-blue-gradient.jpg
   #   - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see

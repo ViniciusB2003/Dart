@@ -76,15 +76,16 @@ class _ProgressIndicatorExampleState extends State<ProgressIndicatorExample>
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Color.fromRGBO(85, 24, 24, 0.965),
+        backgroundColor: Color.fromRGBO(49, 19, 19, 0.965),
         title: Center(child: Text('Temporizador Pomodoro')),
       ),
       body: Container(
         decoration: BoxDecoration(
             image: DecorationImage(
-                image: AssetImage(
-                    'C:/Códigos VSCODE/Dart-Hub/pomodoro_timer/lib/assets/Estudo.gif'),
-                fit: BoxFit.cover)),
+          image: AssetImage(
+              'C:/Códigos VSCODE/Dart-Hub/pomodoro_timer/lib/assets/146302-blue-gradient.jpg'),
+          fit: BoxFit.cover,
+        )),
         child: Center(
           child: Stack(
             alignment: Alignment.center,
@@ -114,17 +115,20 @@ class _ProgressIndicatorExampleState extends State<ProgressIndicatorExample>
                         style: const TextStyle(
                             fontSize: 40,
                             color: Color.fromRGBO(
-                                94, 6, 6, 0.965)), // Estilo do texto
+                                13, 6, 94, 50)), // Estilo do texto
                       );
                     },
                   ),
                   AnimatedBuilder(
                       animation: controller,
                       builder: (BuildContext context, Widget? child) {
-                        return Text(controller.status ==
-                                AnimationStatus.completed
-                            ? 'Defina quantos ciclos serão feitos e aperte Iniciar'
-                            : '');
+                        return Text(
+                            controller.status == AnimationStatus.completed
+                                ? 'Defina quantos ciclos serão feitos e aperte Iniciar'
+                                : '',
+                            style: const TextStyle(
+                                fontSize: 20,
+                                color: Color.fromRGBO(2, 5, 4, 3)));
                       }),
                 ],
               ),
