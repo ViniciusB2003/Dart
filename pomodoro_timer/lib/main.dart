@@ -1,8 +1,6 @@
-import 'dart:html';
+import 'dart:ffi';
 
 import 'package:flutter/material.dart';
-
-/// Flutter code sample for [CircularProgressIndicator].
 
 void main() => runApp(const ProgressIndicatorApp());
 
@@ -29,11 +27,19 @@ class _ProgressIndicatorExampleState extends State<ProgressIndicatorExample>
     with TickerProviderStateMixin {
   late AnimationController controller;
   int _counter = 0;
-  int duration = 10;
-  int reverseduration = 15;
+  bool isAnimatingForward = true;
+
   void _incrementCounter() {
     setState(() {
       _counter++;
+    });
+  }
+
+  void _decrementCounter() {
+    setState(() {
+      if (_counter > 0) {
+        _counter--;
+      }
     });
   }
 
@@ -41,6 +47,7 @@ class _ProgressIndicatorExampleState extends State<ProgressIndicatorExample>
   void initState() {
     double repeatCount = 0;
     int maxRepeatCount = _counter;
+
     controller = AnimationController(
       vsync: this,
       duration: const Duration(seconds: 5),
@@ -51,10 +58,12 @@ class _ProgressIndicatorExampleState extends State<ProgressIndicatorExample>
         if (status == AnimationStatus.completed) {
           if (repeatCount < maxRepeatCount) {
             controller.reverse();
+            isAnimatingForward = false;
           }
         } else if (status == AnimationStatus.dismissed) {
           if (repeatCount < maxRepeatCount) {
             controller.forward();
+            isAnimatingForward = true;
           }
           repeatCount++;
         }
@@ -122,14 +131,15 @@ class _ProgressIndicatorExampleState extends State<ProgressIndicatorExample>
                   AnimatedBuilder(
                       animation: controller,
                       builder: (BuildContext context, Widget? child) {
-                        return Text(
-                            controller.status == AnimationStatus.completed
-                                ? 'Defina quantos ciclos serão feitos e aperte Iniciar'
-                                : '',
-                            style: const TextStyle(
-                                fontSize: 20,
-                                color: Color.fromRGBO(2, 5, 4, 3)));
+                        return Text(controller.status ==
+                                AnimationStatus.completed
+                            ? 'Defina quantos ciclos serão feitos e aperte Iniciar'
+                            : '');
                       }),
+                  Text(
+                    'Tempo : ${(controller.duration!.inSeconds * controller.value).round()} segundos',
+                    style: const TextStyle(fontSize: 20),
+                  ),
                 ],
               ),
               Row(
@@ -142,6 +152,26 @@ class _ProgressIndicatorExampleState extends State<ProgressIndicatorExample>
                   ),
                   SizedBox(width: 10),
                   ElevatedButton(onPressed: initState, child: Text('Iniciar')),
+                  SizedBox(width: 10),
+                  ElevatedButton(
+                      onPressed: () {
+                        if (controller.isAnimating) {
+                          controller.stop();
+                        } else {
+                          if (isAnimatingForward) {
+                            controller.forward();
+                          } else {
+                            controller.reverse();
+                          }
+                        }
+                      },
+                      child: Text(controller.isAnimating ? 'Pause' : '')),
+                  SizedBox(width: 10),
+                  ElevatedButton.icon(
+                    onPressed: _decrementCounter,
+                    icon: const Icon(Icons.remove),
+                    label: Text('$_counter'),
+                  ),
                 ],
               ),
             ],
